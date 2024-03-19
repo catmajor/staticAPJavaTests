@@ -1,4 +1,5 @@
 function matrixRain(frequency) {
+  alert(`Number of cores availabe ${window.navigator.hardwareConcurrency} and memory ${window.navigator.deviceMemory} GB`)
   const dom = document.createElement("div");
   let dropletCount = 0;
   let clearingCount = 0;
@@ -174,6 +175,7 @@ function matrixRain(frequency) {
       maxRate = 12;
       slope = 1
       maxAmount = 1;
+      break;
     case "low":
       maxRate = 9;
       slope = 1;
