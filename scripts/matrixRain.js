@@ -22,6 +22,7 @@ function matrixRain(frequency) {
       this.text.textContent = parent.text.textContent;
       this.text.style.transform = `scale(${private.transform1}, ${private.transform2})`;
       this.dom.style.fontSize = private.size;
+      this.text.style.fontSize = private.size;
       this.dom.style.animationDuration = `${private.fadeSpeed}s`
       this.potentialSwitchTimeout = null;
       this.switchesTried = 0;
