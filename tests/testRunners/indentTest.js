@@ -1,3 +1,4 @@
+//translated from java so if it looks strange thats why
 let conventionUsedEnum =  {
   NONE: 0,
   WITH_INDENT: 1,
