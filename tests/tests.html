@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/matrixRain.css">
+    <link rel="stylesheet" href="style.css">
+  <body>
+    <div id="sidebar">
+      <ul>
+        <li>
+          <p>Indent Test</p>
+          <div class="checkbox"></div>
+        </li>
+        <li>
+          <p>Scanner Test</p>
+          <div class="checkbox"></div>
+        </li>
+        <li>
+          <p>Comment Test</p>
+          <div class="checkbox"></div>
+        </li>
+        <li>
+          <p>80 Char Test</p>
+          <div class="checkbox"></div>
+        </li>
+      </ul>
+    </div>
+    <div id="code-area-container">
+      <div id="code-area">
+        <div id="tabs">
+          <div id="add-button"><span>+</span></div>
+        </div>
+        <div id="text-area">
+          <div id="lines">1</div>
+          <textarea id="input" role="textbox" contenteditable class="java">Code Here</textarea>
+        </div>
+      </div>
+    </div>
+    <div id="test-output-container">
+      <div id="test-output-button">Click to Run Tests</div>
+      <div id="test-output">
+      </div>
+    </div>
+    <footer><a href="https://github.com/catmajor/APJavaTests">Website by Nikita Ostapenko</a></footer>
+    <script src="../scripts/matrixRain.js"></script>
+    <script src="utils/testUtils.js"></script>
+    <script src="testRunners/chartTest.js"></script>
+    <script src="testRunners/commentTest.js"></script>
+    <script src="testRunners/indentTest.js"></script>
+    <script src="testRunners/scannerTest.js"></script>
+    <script src="utils/testRunner.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

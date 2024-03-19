@@ -1,0 +1,308 @@
+:root {
+  --highlight-color: white;
+  --test-output-result-color: #00ff00;
+  --main-color-rgb: 0, 255, 0;
+  --main-color-hex: #00ff00;
+  --main-color: var(--main-color-hex);
+  --window-width: 0;
+}
+:root.fail-anim {
+  animation: flash-red-lite 2.5s linear;
+}
+:root.partial {
+  --highlight-color: #ff0
+}
+:root.fail {
+  --highlight-color: #f00
+}
+footer {position: fixed; color: white; font-family: 'Ubuntu'; bottom: 0; right: 0; font-size: 20px; z-index: 9999999}
+footer a {color: white;}
+body {background: black; padding: 0; margin: 0; display: flex; overflow-x: hidden; width: 100%; height: 100%;}
+#sidebar {height: calc(100% - 2px); width: 140px; display: flex; align-items: center; justify-content: center; border: var(--highlight-color) solid 1px; background: rgba(0, 0, 0, 0.6); transition: 1s border-color}
+#sidebar ul {list-style-type: none; padding: 0;}
+#sidebar ul li {display: flex; list-style-type: none; align-items: center}
+#sidebar ul li p {color: white; width: 100px; font-family: 'Ubuntu'; margin-left: 5px; margin-right: 5px}
+.checkbox {width: 20px; height: 20px; background-color: red; margin-left: 5px; margin-right: 5px; border: white solid 1px;}
+
+#code-area-container {height: 100%; width: calc(100% - 184px); opacity: 1; transition: 1s}
+body.open-testoutput #code-area-container {opacity: 0}
+#code-area {height: calc(100% - 40px); margin: 20px;}
+#tabs {overflow-x: auto; position: relative; white-space: nowrap; height: 40px; overflow-y: hidden}
+#tabs::-webkit-scrollbar {width: 5px; height: 5px; transition: 1s; }
+#tabs:hover::-webkit-scrollbar {height: 10px;}
+#tabs::-webkit-scrollbar-track {background: rgba(0, 0, 0, 0.8); border: white solid 1px}
+#tabs::-webkit-scrollbar-thumb {border: white solid 1px; background: rgb(var(--main-color-rgb));}
+#tabs::-webkit-scrollbar-thumb:hover {background: rgb(var(--main-color-rgb));}
+.tab {height: 30px; background: rgba(0, 0, 0, 0.8); width: 150px; border: var(--highlight-color) solid 1px; display: inline-block; vertical-align: bottom; color: white; font-family: 'Ubuntu'; cursor: default; transition: 1s border-color}
+#tabs .selected {border-color: var(--main-color)}
+.tab .edit-input {all: unset; font-family: 'Roboto'; width: 100%;}
+.tab .input-wrapper {display: none; flex-grow: 1; margin: 0 5px 0 5px; }
+.tab span {cursor: pointer;}
+.tab.editing .input-wrapper {display: block}
+.tab.editing .name {display: none}
+.tab .tab-content-wrapper {width: 100%; height: 100%; display: flex; align-items: center;}
+.tab .name {flex-grow: 1; margin: 0 5px 0 5px; cursor: default; overflow-x: hidden}
+.tab .delete {margin-right: 5px}
+.tab:hover .name {color: var(--main-color-hex)}
+.tab span:not(:first-of-type):hover {color: var(--main-color-hex); user-select: none}
+#add-button {display: inline-block; vertical-align: bottom; color: white; border: white solid 1px; height: 30px; width: 30px; cursor: pointer;}
+#add-button span {display: flex; width: 100%; height: 100%; justify-content: center; align-items: center; font-size: 40px; font-weigth: 2000}
+#add-button:hover {border-color: var(--main-color-hex); color: var(--main-color-hex)}
+
+#text-area {width: 100%; height: calc(100% - 40px); border: white solid 1px; display: flex; color: white; font-family: 'Roboto Mono'; font-size: 12px; overflow: auto; transition: 0.5s; cursor: text; background: rgba(0,0,0,0.5)}
+#text-area #lines {width: 30px; height: max-content; border-right: white solid 1px; line-height: 16px}
+#text-area #input { width: 100%; height: max-content; box-shadow: none; border: none; outline: none; unset: all; font-size: 12px; font-family: 'Roboto Mono'; line-height: 16px; background: none; color: white; overflow: hidden; resize: none}
+#text-area.focused {background: rgba(0, 0, 0, 0.85);}
+#text-area::-webkit-scrollbar {width: 5px; transition: 1s; }
+#text-area.focused::-webkit-scrollbar {width: 10px; transition: 1s}
+#text-area::-webkit-scrollbar-track {border: white solid 1px}
+#text-area::-webkit-scrollbar-thumb {border: white solid 1px; background: rgb(var(--main-color-rgb));}
+#text-area.focused::-webkit-scrollbar-thumb {background: rgb(var(--main-color-rgb));}
+
+#test-output-container {width: 42px; height: calc(100% - 2px); position: relative; transition: 1s left;}
+#test-output-button {width: 40px; height: 100%; border: var(--highlight-color) solid 1px; position: absolute; left: 0; transition: 1s left, 1s border-color, 1s color; z-index: 99; writing-mode: vertical-lr; color: white; display: flex; font-family: 'Ubuntu'; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.5); cursor: pointer}
+#test-output-button:hover {border-color: var(--main-color-hex)}
+body.open-testoutput #test-output-button {left: calc(204px - var(--window-width)); background: black}
+#test-output {border: var(--highlight-color) solid 1px; height: 100%; position: absolute; left: 40px; width: calc(var(--window-width) - 204px); background: ; transition: 1s left, 1s border-color; padding: 10px; height: calc(100% - 20px)}
+body.open-testoutput #test-output {display: block; z-index: 98; opacity: 1; left: calc(244px - var(--window-width)); transition: 1s; background: rgba(0, 0, 0, 0.5);}
+
+.tab-test-result {--test-output-result-single: 255, 0, 0; border: white solid 1px; width: calc(100% - 20px); color: rgb(var(--test-output-result-single)); background-color: rgba(var(--test-output-result-single), 0.2); margin-bottom: 10px; border-radius: 2px}
+.tab-test-result.pass {--test-output-result-single: 0, 255, 0; }
+.tab-test-result.partial {--test-output-result-single: 255, 255, 0;}
+.tab-test-result.open .test-result {display: block}
+.text {display: flex}
+.text p {padding: 0; margin: 0 5px 0 5px; height: 100%; display: flex; align-items: center; font-family: 'Roboto Mono'; justify-content: center; cursor: pointer}
+.tab-test-result .text p:first-of-type {color: white; user-select: none;}
+.tab-test-result:not(.pass)>.text:hover>p:first-of-type {color: rgb(var(--test-output-result-single))} 
+.tab-test-result>.test-result:not(.pass)>.text:hover>p:first-of-type {color: #ff0000}
+.test-result { margin-left: 10px; color: #ff0000; display: none}
+.test-result.pass {color: #00ff00; cursor: default}
+.test-result.pass .text p {cursor: default}
+.test-result.open .fail {display: block}
+.fail {margin-left: 20px; display: none; font-family: 'Roboto Mono'}
+
+@keyframes flash-red-lite {
+  0% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #00ff00;
+    --main-color: var(--main-color-hex);
+  }
+  3% {
+    --main-color-rgb: 51, 204, 0;
+    --main-color-hex: #33cc00;
+    --main-color: var(--main-color-hex);
+  }
+  6% {
+    --main-color-rgb: 102, 153, 0;
+    --main-color-hex: #669900;
+    --main-color: var(--main-color-hex);
+  }
+  9% {
+    --main-color-rgb: 153, 102, 0;
+    --main-color-hex: #996600;
+    --main-color: var(--main-color-hex);
+  }
+  12% {
+    --main-color-rgb: 204, 51, 0;
+    --main-color-hex: #cc3300;
+    --main-color: var(--main-color-hex);
+  }
+  15% {
+    --main-color-rgb: 255, 0, 0;
+    --main-color-hex: #ff0000;
+    --main-color: var(--main-color-hex);
+  }
+  85% {
+    --main-color-rgb: 255, 0, 0;
+    --main-color-hex: #ff0000;
+    --main-color: var(--main-color-hex);
+  }
+  88% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #cc3300;
+    --main-color: var(--main-color-hex);
+  }
+  91% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #996600;
+    --main-color: var(--main-color-hex);
+  }
+  94% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #669900;
+    --main-color: var(--main-color-hex);
+  }
+  97% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #33cc00;
+    --main-color: var(--main-color-hex);
+  }
+  100% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #00ff00;
+    --main-color: var(--main-color-hex);
+  }
+}
+
+@keyframes flash-red {
+  0% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #00ff00;
+    --main-color: var(--main-color-hex);
+  }
+  1% {
+    --main-color-rgb: 17, 238, 0;
+    --main-color-hex: #11ee00;
+    --main-color: var(--main-color-hex);
+  }
+  2% {
+    --main-color-rgb: 34, 221, 0;
+    --main-color-hex: #22dd00;
+    --main-color: var(--main-color-hex);
+  }
+  3% {
+    --main-color-rgb: 51, 204, 0;
+    --main-color-hex: #33cc00;
+    --main-color: var(--main-color-hex);
+  }
+  4% {
+    --main-color-rgb: 68, 187, 0;
+    --main-color-hex: #44bb00;
+    --main-color: var(--main-color-hex);
+  }
+  5% {
+    --main-color-rgb: 85, 170, 0;
+    --main-color-hex: #55aa00;
+    --main-color: var(--main-color-hex);
+  }
+  6% {
+    --main-color-rgb: 102, 153, 0;
+    --main-color-hex: #669900;
+    --main-color: var(--main-color-hex);
+  }
+  7% {
+    --main-color-rgb: 119, 136, 0;
+    --main-color-hex: #778800;
+    --main-color: var(--main-color-hex);
+  }
+  8% {
+    --main-color-rgb: 136, 119, 0;
+    --main-color-hex: #887700;
+    --main-color: var(--main-color-hex);
+  }
+  9% {
+    --main-color-rgb: 153, 102, 0;
+    --main-color-hex: #996600;
+    --main-color: var(--main-color-hex);
+  }
+  10% {
+    --main-color-rgb: 170, 85, 0;
+    --main-color-hex: #aa5500;
+    --main-color: var(--main-color-hex);
+  }
+  11% {
+    --main-color-rgb: 187, 68, 0;
+    --main-color-hex: #bb4400;
+    --main-color: var(--main-color-hex);
+  }
+  12% {
+    --main-color-rgb: 204, 51, 0;
+    --main-color-hex: #cc3300;
+    --main-color: var(--main-color-hex);
+  }
+  13% {
+    --main-color-rgb: 221, 34, 0;
+    --main-color-hex: #dd2200;
+    --main-color: var(--main-color-hex);
+  }
+  14% {
+    --main-color-rgb: 238, 17, 0;
+    --main-color-hex: #ee1100;
+    --main-color: var(--main-color-hex);
+  }
+  15% {
+    --main-color-rgb: 255, 0, 0;
+    --main-color-hex: #ff0000;
+    --main-color: var(--main-color-hex);
+  }
+  85% {
+    --main-color-rgb: 255, 0, 0;
+    --main-color-hex: #ff0000;
+    --main-color: var(--main-color-hex);
+  }
+  86% {
+    --main-color-rgb: 238, 17, 0;
+    --main-color-hex: #ee1100;
+    --main-color: var(--main-color-hex);
+  }
+  87% {
+    --main-color-rgb: 221, 34, 0;
+    --main-color-hex: #dd2200;
+    --main-color: var(--main-color-hex);
+  }
+  88% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #cc3300;
+    --main-color: var(--main-color-hex);
+  }
+  89% {
+    --main-color-rgb: 187, 68, 0;
+    --main-color-hex: #bb4400;
+    --main-color: var(--main-color-hex);
+  }
+  90% {
+    --main-color-rgb: 170, 85, 0;
+    --main-color-hex: #aa5500;
+    --main-color: var(--main-color-hex);
+  }
+  91% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #996600;
+    --main-color: var(--main-color-hex);
+  }
+  92% {
+    --main-color-rgb: 136, 119, 0;
+    --main-color-hex: #887700;
+    --main-color: var(--main-color-hex);
+  }
+  93% {
+    --main-color-rgb: 119, 136, 0;
+    --main-color-hex: #778800;
+    --main-color: var(--main-color-hex);
+  }
+  93% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #669900;
+    --main-color: var(--main-color-hex);
+  }
+  95% {
+    --main-color-rgb: 85, 170, 0;
+    --main-color-hex: #55aa00;
+    --main-color: var(--main-color-hex);
+  }
+  96% {
+    --main-color-rgb: 68, 187, 0;
+    --main-color-hex: #44bb00;
+    --main-color: var(--main-color-hex);
+  }
+  97% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #33cc00;
+    --main-color: var(--main-color-hex);
+  }
+  98% {
+    --main-color-rgb: 34, 221, 0;
+    --main-color-hex: #22dd00;
+    --main-color: var(--main-color-hex);
+  }
+  99% {
+    --main-color-rgb: 17, 238, 0;
+    --main-color-hex: #11ee00;
+    --main-color: var(--main-color-hex);
+  }
+  100% {
+    --main-color-rgb: 0, 255, 0;
+    --main-color-hex: #00ff00;
+    --main-color: var(--main-color-hex);
+  }
+}

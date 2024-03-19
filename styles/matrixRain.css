@@ -1,0 +1,11 @@
+#matrix-rain {position: fixed; top: 0; left: 0; z-index: -99; font-family: 'Roboto Mono';}
+.matrix-rain-rainDrop {--final-color: var(--main-color); display: flex; flex-direction: column; color: white; position: fixed; top: 0; left: 0; font-size: 40px; user-select: none}
+.matrix-rain-rainDrop p {transform: scale(-1, -1)}
+.matrix-rain-droplet {display: flex; flex-direction: column; color: black; position: fixed; top: 0; left: 0; font-size: 40px; animation-name: droplet-fade; animation-duration: 6s; animation-iteration-count: 1; animation-fill-mode: backwards; text-shadow: var(--final-color) 1px 1px 10px, var(--final-color) -1px -1px 10px; opacity: 0;}
+.matrix-rain-droplet p {transform: scale(-1, -1)}
+@keyframes droplet-fade {
+  0% {color: white; opacity: 1;  }
+  10% {color: var(--final-color); opacity: 1;}
+  99% {opacity: 0; color: var(--final-color);}
+  100% {opacity: 0; color: black;}
+}
