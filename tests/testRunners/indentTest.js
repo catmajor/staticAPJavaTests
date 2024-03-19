@@ -1,4 +1,5 @@
 //translated from java so if it looks strange thats why
+//Nikita and Tomas made this
 let conventionUsedEnum =  {
   NONE: 0,
   WITH_INDENT: 1,

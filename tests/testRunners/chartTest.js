@@ -1,3 +1,4 @@
+//Tomas made this
 function charTest(fileName, fileLines) {
   const fails = new TotalFails(fileName);
   for (let lineNumber = 1; lineNumber <= fileLines.length; lineNumber++) {

@@ -1,3 +1,4 @@
+//Tomas made this one
 function scannerTest(fileName, fileLines) {
   const fails = new TotalFails(fileName);
   let lines = [...fileLines];
