@@ -1,5 +1,4 @@
 function matrixRain(frequency) {
-  alert(`Number of cores availabe ${window.navigator.hardwareConcurrency} and memory ${window.navigator.deviceMemory} GB`)
   const dom = document.createElement("div");
   let dropletCount = 0;
   let clearingCount = 0;
@@ -106,7 +105,7 @@ function matrixRain(frequency) {
       destructorCalled = true;
       rainDropArr.array[private.index] = null;
       clearingIndex = clearingArr.add(this);
-      if (safeClear&&dropletCount === 0) {
+      if (safeClear&&dropletCount === 0&&(dropletCount+clearingCount<maxAmount)) {
         new RainDrop(frame);
       }
       this.dom.removeChild(this.text);
@@ -172,19 +171,19 @@ function matrixRain(frequency) {
   let maxAmount = null;
   switch (frequency) {
     case "minimal":
-      maxRate = 12;
+      maxRate = 40;
       slope = 1
-      maxAmount = 1;
+      maxAmount = 4;
       break;
     case "low":
       maxRate = 9;
       slope = 1;
-      maxAmount = 2;
+      maxAmount = 8;
       break;
     case "medium":
       maxRate = 6;
       slope = 1.5;
-      maxAmount = 5;
+      maxAmount = 12;
       break;
     case "high":
       maxRate = 3;
@@ -201,7 +200,7 @@ function matrixRain(frequency) {
     });
     if (Math.floor(Math.random()*calculatedLengthChance)===0) {
       console.log(dropletCount, maxAmount)
-      if (!maxAmount||dropletCount<=maxAmount) {
+      if (!maxAmount||((dropletCount+clearingCount)<maxAmount)) {
         new RainDrop(frame);
         calculatedLengthChance = (maxRate+Math.E**(-slope*(dropletCount+clearingCount-4)))
       }

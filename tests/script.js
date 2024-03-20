@@ -368,7 +368,7 @@ function main() {
   window.addEventListener("resize", () => {
     document.documentElement.style.setProperty("--window-width", `${window.innerWidth}px`)
   })
-  setTimeout(() => {matrixRain("minimal")}, 2000);
+  setTimeout(() => {matrixRain(window.navigator.hardwareConcurrency<=4?"minimal":"low")}, 2000);
 }
 main();
 //alert(`${indent}, ${scanner}, ${comment}, ${char}`);
