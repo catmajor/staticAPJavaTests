@@ -171,12 +171,12 @@ function matrixRain(frequency) {
   let maxAmount = null;
   switch (frequency) {
     case "minimal":
-      maxRate = 40;
+      maxRate = 30;
       slope = 1
       maxAmount = 8;
       break;
     case "low":
-      maxRate = 20;
+      maxRate = 15;
       slope = 1;
       maxAmount = 16;
       break;
