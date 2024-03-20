@@ -21,8 +21,8 @@ function matrixRain(frequency) {
       this.dom.style.left = `${private.left}px`;
       this.text.textContent = parent.text.textContent;
       this.text.style.transform = `scale(${private.transform1}, ${private.transform2})`;
-      this.dom.style.fontSize = private.size;
-      this.text.style.fontSize = private.size;
+      this.dom.style.fontSize = `${private.size}px`;
+      this.text.style.fontSize = `${private.size}px`;
       this.dom.style.animationDuration = `${private.fadeSpeed}s`
       this.potentialSwitchTimeout = null;
       this.switchesTried = 0;
@@ -173,17 +173,17 @@ function matrixRain(frequency) {
     case "minimal":
       maxRate = 40;
       slope = 1
-      maxAmount = 4;
-      break;
-    case "low":
-      maxRate = 9;
-      slope = 1;
       maxAmount = 8;
       break;
+    case "low":
+      maxRate = 20;
+      slope = 1;
+      maxAmount = 16;
+      break;
     case "medium":
-      maxRate = 6;
+      maxRate = 10;
       slope = 1.5;
-      maxAmount = 12;
+      maxAmount = 32;
       break;
     case "high":
       maxRate = 3;
