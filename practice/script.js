@@ -1,5 +1,14 @@
-const container = document.querySelector('container')
-const carousel = document.querySelector('carousel')
+const container = document.querySelector('container');
+const carousel = document.querySelector('carousel');
+const searchParams = new URLSearchParams(window.location.search);
+let rotateFromLink;
+try {
+  rotateFromLink = parseInt(searchParams.get("window"));
+  rotateFromLink = isNaN(rotateFromLink)?0:rotateFromLink;
+  console.log(rotateFromLink)
+} catch (e) {
+  rotateFromLink = 0;
+}
 
 
 
@@ -12,10 +21,12 @@ let dotArr = []
 let arrangedArr = []
 divArr.forEach(ele => arrangedArr.push(ele))
 const shiftAngle = 2*pi/arrangedArr.length
+let prevSelectInd = rotateFromLink;
 
 function select(ind) {
- dotArr.forEach(ele => ele.style.opacity = 0.5)
- dotArr[ind].style.opacity = 1
+ dotArr[prevSelectInd].classList.remove("highlighted");
+ prevSelectInd = ind;
+ dotArr[ind].classList.add("highlighted");
 }
 
 function update(ele, x, y, w=divSize[0], h=divSize[1]) {
@@ -29,30 +40,38 @@ function update(ele, x, y, w=divSize[0], h=divSize[1]) {
 
 
 arrangedArr.forEach((ele,ind) => {
- let adjustedAngle = pi/2+ind*shiftAngle
+ let adjustedAngle = pi/2+ind*shiftAngle-(2*pi*prevSelectInd/arrangedArr.length);
    let sizeFactor = Math.sin(adjustedAngle)*0.30+0.70
    let x = -ellipse[1]*Math.cos(adjustedAngle)+ellipse[0]+ellipse[1]*(1-sizeFactor)
    let y = ellipse[3]*Math.sin(adjustedAngle)+ellipse[2]
    update(ele, x, y, sizeFactor*divSize[0], sizeFactor*divSize[1])
-   ele.style.zIndex = Math.floor(Math.sin(adjustedAngle)*10)-10
-   ele.style.opacity = Math.sin(adjustedAngle)*0.25+0.75
-   let dot = document.createElement("dot")
-   indicators.appendChild(dot)
-   dotArr.push(dot)
+   ele.style.zIndex = Math.floor(Math.sin(adjustedAngle)*10)-10;
+   ele.style.opacity = Math.sin(adjustedAngle)*0.6+0.4;
+   let dot = document.createElement("dot");
+   indicators.appendChild(dot);
+   dotArr.push(dot);
+   dot.addEventListener("click", () => {
+     dot.privInd = ind;
+     rotate(-pi*2*dot.privInd/arrangedArr.length, true);
+   });
    ele.style.setProperty('--size', sizeFactor)
-   let footer = document.createElement("footer")
-   footer.textContent = "Sample Footer"
-   ele.appendChild(footer)
-})
+});
+setTimeout(() => {
+  arrangedArr.forEach(ele => {
+    ele.style.transition = "0.1s";
+  });
+}, 300);
 
-function rotate(amt) {
-  ticker -= amt
+
+//i have no idea how this code works but it does
+function rotate(amt, set=false) {
+  ticker = set?amt:ticker-amt;
   angle = ticker+pi/2
   arrangedArr.forEach((ele,ind) => {
 
     let adjustedAngle = angle+ind*shiftAngle
     let sizeFactor = Math.sin(adjustedAngle)*0.30+0.70
-    let opacity = Math.sin(adjustedAngle)*0.25+0.75
+    let opacity = Math.sin(adjustedAngle)*0.6+0.4
     let x = -ellipse[1]*Math.cos(adjustedAngle)+ellipse[0]+ellipse[1]*(1-sizeFactor), y = ellipse[3]*Math.sin(adjustedAngle)+ellipse[2]
     update(ele, x, y, sizeFactor*divSize[0], sizeFactor*divSize[1])
     ele.style.zIndex = Math.floor(Math.sin(adjustedAngle)*10)-10
@@ -62,29 +81,33 @@ function rotate(amt) {
   })
  }
 
-
-select(0)
-let ticker = 0
+console.log(prevSelectInd)
+select(prevSelectInd);
+let ticker = -2*pi*prevSelectInd/arrangedArr.length;
 let autoscroll = false
+let passiveScroll = null;
+let scrollTimeout = null;
 
 if (autoscroll) {
   scrollTimeout = setTimeout(() => {
    passiveScroll = setInterval(() => {
-     rotate(0.000628)
-   }, 10)
-  }, 100)
+     rotate(0.000628);
+   }, 10);
+  }, 100);
 }
 
 
 container.addEventListener("wheel", event => {
- rotate(event.deltaY/500)
- clearInterval(passiveScroll)
- clearTimeout(scrollTimeout)
+ rotate(event.deltaY/500);
+ clearInterval(passiveScroll);
+ clearTimeout(scrollTimeout);
  if (autoscroll) {
   scrollTimeout = setTimeout(() => {
     passiveScroll = setInterval(() => {
-      rotate(0.000628)
+      rotate(0.000628);
     }, 10)
-  }, 2000)
+  }, 2000);
 }
- })
+});
+
+matrixRain("medium");
