@@ -41,12 +41,12 @@ function update(ele, x, y, w=divSize[0], h=divSize[1]) {
 
 arrangedArr.forEach((ele,ind) => {
  let adjustedAngle = pi/2+ind*shiftAngle-(2*pi*prevSelectInd/arrangedArr.length);
-   let sizeFactor = Math.sin(adjustedAngle)*0.30+0.70
-   let x = -ellipse[1]*Math.cos(adjustedAngle)+ellipse[0]+ellipse[1]*(1-sizeFactor)
-   let y = ellipse[3]*Math.sin(adjustedAngle)+ellipse[2]
-   update(ele, x, y, sizeFactor*divSize[0], sizeFactor*divSize[1])
+   let sizeFactor = Math.sin(adjustedAngle)*0.30+0.70;
+   let x = -ellipse[1]*Math.cos(adjustedAngle)+ellipse[0]+ellipse[1]*(1-sizeFactor);
+   let y = ellipse[3]*Math.sin(adjustedAngle)+ellipse[2];
+   update(ele, x, y, sizeFactor*divSize[0], sizeFactor*divSize[1]);
    ele.style.zIndex = Math.floor(Math.sin(adjustedAngle)*10)-10;
-   ele.style.opacity = Math.sin(adjustedAngle)*0.6+0.4;
+   ele.style.opacity = Math.sin(adjustedAngle)*0.65+0.35;
    let dot = document.createElement("dot");
    indicators.appendChild(dot);
    dotArr.push(dot);
@@ -54,7 +54,7 @@ arrangedArr.forEach((ele,ind) => {
      dot.privInd = ind;
      rotate(-pi*2*dot.privInd/arrangedArr.length, true);
    });
-   ele.style.setProperty('--size', sizeFactor)
+   ele.style.setProperty('--size', sizeFactor);
 });
 setTimeout(() => {
   arrangedArr.forEach(ele => {
@@ -66,12 +66,12 @@ setTimeout(() => {
 //i have no idea how this code works but it does
 function rotate(amt, set=false) {
   ticker = set?amt:ticker-amt;
-  angle = ticker+pi/2
+  angle = ticker+pi/2;
   arrangedArr.forEach((ele,ind) => {
 
-    let adjustedAngle = angle+ind*shiftAngle
-    let sizeFactor = Math.sin(adjustedAngle)*0.30+0.70
-    let opacity = Math.sin(adjustedAngle)*0.6+0.4
+    let adjustedAngle = angle+ind*shiftAngle;
+    let sizeFactor = Math.sin(adjustedAngle)*0.30+0.70;
+    let opacity = Math.sin(adjustedAngle)*0.65+0.35;
     let x = -ellipse[1]*Math.cos(adjustedAngle)+ellipse[0]+ellipse[1]*(1-sizeFactor), y = ellipse[3]*Math.sin(adjustedAngle)+ellipse[2]
     update(ele, x, y, sizeFactor*divSize[0], sizeFactor*divSize[1])
     ele.style.zIndex = Math.floor(Math.sin(adjustedAngle)*10)-10
@@ -110,4 +110,4 @@ container.addEventListener("wheel", event => {
 }
 });
 
-matrixRain("medium");
+matrixRain(window.navigator.hardwareConcurrency<=4?"low":"medium");
