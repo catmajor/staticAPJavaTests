@@ -74,7 +74,7 @@ function rotate(amt, set=false) {
     let opacity = Math.sin(adjustedAngle)*0.65+0.35;
     let x = -ellipse[1]*Math.cos(adjustedAngle)+ellipse[0]+ellipse[1]*(1-sizeFactor), y = ellipse[3]*Math.sin(adjustedAngle)+ellipse[2]
     update(ele, x, y, sizeFactor*divSize[0], sizeFactor*divSize[1])
-    ele.style.zIndex = Math.floor(Math.sin(adjustedAngle)*10)-10
+    ele.style.zIndex = Math.floor(Math.sin(adjustedAngle)*10)+10;
     ele.style.opacity = opacity
     if (opacity>0.963) select(ind)
     ele.style.setProperty('--size', sizeFactor)

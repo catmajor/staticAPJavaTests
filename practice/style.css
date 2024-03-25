@@ -23,7 +23,7 @@ carousel>div:nth-child(1)>* {margin-left: 20px}
 carousel>div.unit-slide {align-items: center}
 carousel>div.unit-slide>h1 {justify-content: center}
 
-indicators {position:fixed; display: flex; align-items: center; justify-content: center; bottom: 2vh; width: 100vw}
+indicators {position:fixed; display: flex; align-items: center; justify-content: center; bottom: 2vh; width: 100vw; z-index: 40;}
 indicators dot {width: 30px; height: 30px; border-radius: 100%; margin-left: 0.5vw; margin-right: 0.5vw; opacity: 1; border: white solid 2px; transition: 0.1s; cursor: pointer; }
 indicators dot.highlighted {opacity: 1; border-color: var(--main-color)}
 
