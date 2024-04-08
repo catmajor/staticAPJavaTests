@@ -1,0 +1,29 @@
+:root {
+  --main-color: #00ff00;
+  --main-font: "Ubuntu";
+  --secondary-font: "Roboto Mono"
+}
+
+body {margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; background-color: black; overflow-x: hidden; min-width: 500px}
+container {width: 120vw; height: 95vh; display: flex; }
+carousel {flex-grow: 1}
+
+carousel>div>footer {font-size: calc(var(--size) * 3vh); font-family: var(--main-font); font-weight: 50; position: absolute; bottom: 10px; right: 10px}
+carousel>div {background-color: rgba(0,0,0, 1); position: absolute; border: white solid 1px; box-sizing: border-box; display: flex; flex-direction: column; color: white}
+carousel>div>h1 {width: 100%; font-family: var(--main-font); font-weight: 1900; display: flex; align-items: center; font-size: calc(3vw * var(--size)); margin: 0; padding: 0}
+carousel>div>h2 {width: 100%; font-family: var(--main-font); font-size: calc(var(--size)*2vw); margin-left: 10px; padding: 0; margin:0}
+carousel content {width: 100%; height: calc(96% - 2vw*var(--size)); display: flex; }
+carousel content>div {width: 48%; height: 98%; margin: 0 1% 2% 1%; border: white solid 1px; overflow: hidden; font-size: calc(1.5vw * var(--size)); display: flex; align-items: center; font-family: var(--secondary-font)}
+carousel content div:nth-child(1) {padding-left: calc(10px * var(--size))}
+carousel content div:nth-child(2) {font-size: calc(3vw * var(--size)); display: flex; justify-content: center; align-items: center}
+carousel content div a {color: white; z-index: calc(100000 * var(--size))}
+
+carousel>div:nth-child(1) {align-items: center; justify-content: center}
+carousel>div:nth-child(1)>* {margin-left: 20px}
+carousel>div.unit-slide {align-items: center}
+carousel>div.unit-slide>h1 {justify-content: center}
+
+indicators {position:fixed; display: flex; align-items: center; justify-content: center; bottom: 2vh; width: 100vw; z-index: 40;}
+indicators dot {width: 30px; height: 30px; border-radius: 100%; margin-left: 0.5vw; margin-right: 0.5vw; opacity: 1; border: white solid 2px; transition: 0.1s; cursor: pointer; }
+indicators dot.highlighted {opacity: 1; border-color: var(--main-color)}
+

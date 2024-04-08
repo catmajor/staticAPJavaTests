@@ -232,6 +232,9 @@ function matrixRain(frequency) {
     } else {
       animation = setInterval(animate, 100);
       new RainDrop(frame);
+      new RainDrop(frame);
+      new RainDrop(frame);
+      calculatedLengthChance = (3+Math.E**4)
     }
   });
 }

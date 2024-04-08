@@ -1,29 +1,46 @@
 :root {
-  --main-color: #00ff00;
-  --main-font: "Ubuntu";
-  --secondary-font: "Roboto Mono"
+  --main-color: #00ff00
+  
 }
 
-body {margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; background-color: black; overflow-x: hidden; min-width: 500px}
-container {width: 120vw; height: 95vh; display: flex; }
-carousel {flex-grow: 1}
+body {margin:0; display: flex; background-color: black}
+main {width: 75%; position: fixed; height: 100%; }
+#fake-main {width: 75%; }
+.hidden {opacity: 0;}
 
-carousel>div>footer {font-size: calc(var(--size) * 3vh); font-family: var(--main-font); font-weight: 50; position: absolute; bottom: 10px; right: 10px}
-carousel>div {background-color: rgba(0,0,0, 1); position: absolute; border: white solid 1px; box-sizing: border-box; display: flex; flex-direction: column; color: white}
-carousel>div>h1 {width: 100%; font-family: var(--main-font); font-weight: 1900; display: flex; align-items: center; font-size: calc(3vw * var(--size)); margin: 0; padding: 0}
-carousel>div>h2 {width: 100%; font-family: var(--main-font); font-size: calc(var(--size)*2vw); margin-left: 10px; padding: 0; margin:0}
-carousel content {width: 100%; height: calc(96% - 2vw*var(--size)); display: flex; }
-carousel content>div {width: 48%; height: 98%; margin: 0 1% 2% 1%; border: white solid 1px; overflow: hidden; font-size: calc(1.5vw * var(--size)); display: flex; align-items: center; font-family: var(--secondary-font)}
-carousel content div:nth-child(1) {padding-left: calc(10px * var(--size))}
-carousel content div:nth-child(2) {font-size: calc(3vw * var(--size)); display: flex; justify-content: center; align-items: center}
-carousel content div a {color: white; z-index: calc(100000 * var(--size))}
 
-carousel>div:nth-child(1) {align-items: center; justify-content: center}
-carousel>div:nth-child(1)>* {margin-left: 20px}
-carousel>div.unit-slide {align-items: center}
-carousel>div.unit-slide>h1 {justify-content: center}
+#timelinewrapper {flex-grow:1; display: flex; justify-content: center; box-sizing: border-box; border-left: black solid 0px; z-index: 98;}
+#timelinebg {background-color: rgba(0,0,0,0.8); width: 20%; height: 100%; z-index: -90; border-left: white solid 2px; border-right: white solid 2px; position: fixed; top:0; box-shadow: -2px -0px 6px black}
+#timeline {width: 10px; background-color: #006600; display: flex; align-items: center; flex-direction: column; border-right: 3px solid white; border-left: white solid 3px;}
+.time {width: 30px; height: 30px; border-radius: 100%; background-color: #00ee00; border: white solid 5px; margin-top: -10px; position: relative; transition-property: margin}
+.time:hover:not(#first-date) {background-color: #00ff00;}
+.time p {color: white; font-size: 20px; top: -18px; position: absolute; width: 120px; display: flex; justify-content: center; flex-direction: column; height: 30px; align-items: flex-end}
+.time .date {font-weight: bold;  font-family: 'Roboto Mono'; }
+.time .description {font-family: 'Roboto Mono'; font-size: 13px; top: -11px}
+.time>p {--pos: 40px}
+.time:nth-of-type(2n) {}
+.time:nth-of-type(2n-1) {}
+.time:nth-of-type(2n) .date {right: var(--pos);}
+.time:nth-of-type(2n-1) .date {left: var(--pos); align-items: flex-start}
+.time:nth-of-type(2n) .description {left: var(--pos);  align-items: flex-start}
+.time:nth-of-type(2n-1) .description {right: var(--pos);}
+.time .subdate {position: absolute; width: 25px; height: 25px; border-radius: 100%; background-color: #006600; border: white solid 2px; transition: 0.25s; opacity: 0}
+.time .subdate::after {width: 15px; height: 15px; position: absolute; background-color: #00ee00; content: ''; right: 5px; top: 5px; border-radius: 100%; box-sizing: border-box; }
+.subdate p {top: -23px; --pos: 35px; font-size: 20px}
+.subdate .description {top: -15px; font-size: 12px}
+#timeline>p {position: fixed; top: 0; right: 0}
 
-indicators {position:fixed; display: flex; align-items: center; justify-content: center; bottom: 2vh; width: 100vw; z-index: 40;}
-indicators dot {width: 30px; height: 30px; border-radius: 100%; margin-left: 0.5vw; margin-right: 0.5vw; opacity: 1; border: white solid 2px; transition: 0.1s; cursor: pointer; }
-indicators dot.highlighted {opacity: 1; border-color: var(--main-color)}
+.content {position: absolute; transition: 0.3s opacity, 0.3s text-shadow;}
+.content:nth-of-type(2) {border-top: white solid 4px}
+.content:not(:first-child) { box-sizing: border-box; box-shadow: 0px -5px 6px black; border-right:white solid 4px; border-left:white solid 4px; width: 97%; border-top: white solid 4px; background: rgba(0,0,0,0.8)}
+content {width: 100%; height: 100%; display: flex}
+content>div {width: 48%; height: 96%; border: white solid 1px; margin: 2% 1% 2% 1%; display: flex; align-items: center; justify-content: center; font-size: 2vmax}
+content div {color: white}
+content a {color: white}
+
+
+
+#intro {width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; transition: 0.3s opacity, 0.3s text-shadow, 0.3s color; background-size: cover; color: black; text-shadow: 2px 0px 0px white, 0px 2px 0px white, -2px 0px 0px white, 0px -2px 0px white;}
+#intro h1 {font-family: 'Ubuntu'; font-weight: 100; margin: 0; font-size: 150px; margin-left: 20px;}
+#intro h4 {font-family: 'Roboto Mono'; margin:0; font-size: 60px; margin-left: 20px;}
 
